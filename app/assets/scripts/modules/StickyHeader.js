@@ -3,6 +3,7 @@ import waypoints from '../../../../node_modules/waypoints/lib/noframework.waypoi
 import smoothScroll from 'jquery-smooth-scroll';
 
 class StickyHeader {
+	
 	constructor() {
 		this.siteHeader = $(".site-header");
 		this.headerTriggerElement = $(".large-hero__title");
@@ -11,7 +12,6 @@ class StickyHeader {
 		this.pageSections = $(".page-section");
 		//seleziono tutti i link element della primary-nav
 		this.headerLinks = $(".primary-nav a");
-		this.createPageSectionWaypoints();
 		this.addSmoothScrolling();
 	}
 
@@ -35,39 +35,7 @@ class StickyHeader {
 		});
 	}
 	
-	//waypoints per le sezioni 
-	createPageSectionWaypoints() {
-		var that = this;
-		this.pageSections.each(function(){
-			var currentPageSection = this;
-			new Waypoint({
-				element: currentPageSection,
-				handler: function(direction) {
-					if(direction == "down") {
-						// matchingHeaderLink = la prima volta e` il primo selettore jquery 
-						var matchingHeaderLink = currentPageSection.getAttribute("data-matching-link");
-						that.headerLinks.removeClass("is-current-link");
-						$(matchingHeaderLink).addClass("is-current-link");
-					} 
-				},
-
-				offset: "18%"
-			});
-			new Waypoint({
-				element: currentPageSection,
-				handler: function(direction) {
-					if(direction == "up") {
-						// matchingHeaderLink = la prima volta e` il primo selettore jquery 
-						var matchingHeaderLink = currentPageSection.getAttribute("data-matching-link");
-						that.headerLinks.removeClass("is-current-link");
-						$(matchingHeaderLink).addClass("is-current-link");
-					} 
-				},
-
-				offset: "-40%"
-			});
-		});
-	}
+	
 }
 
 export default StickyHeader;

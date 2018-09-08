@@ -1,0 +1,6 @@
+#slideshow {
+	display: none;
+	@mixin atMedium {
+		display: inline-block;
+	}
+}

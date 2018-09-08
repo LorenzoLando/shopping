@@ -62,6 +62,14 @@
 
 	var _StickyHeader2 = _interopRequireDefault(_StickyHeader);
 
+	var _DropDown = __webpack_require__(7);
+
+	var _DropDown2 = _interopRequireDefault(_DropDown);
+
+	var _SlideShow = __webpack_require__(8);
+
+	var _SlideShow2 = _interopRequireDefault(_SlideShow);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//creiamo una nuova istance e la diamo a una variabile
@@ -71,13 +79,14 @@
 	//vogliamo che differeneti elementi abbiano differenti offset 	
 	//il primo e per i feature items 
 	//accetta due argomenti. l elemento selezionato e l offset
+	//questo e per i testimonial
 
 	//metodo interno a es6 per importare file.js
-	new _RevealOnScroll2.default((0, _jquery2.default)(".feature-item"), "85%");
-	//questo e per i testimonial
 	new _RevealOnScroll2.default((0, _jquery2.default)(".testimonial"), "60%");
 	//nuova istance della classe StickyHeader dopo averla importata
 	var stickyHeader = new _StickyHeader2.default();
+	var dropDown = new _DropDown2.default();
+	var slideShow = new _SlideShow2.default();
 
 /***/ }),
 /* 1 */
@@ -10848,7 +10857,6 @@
 			this.pageSections = (0, _jquery2.default)(".page-section");
 			//seleziono tutti i link element della primary-nav
 			this.headerLinks = (0, _jquery2.default)(".primary-nav a");
-			this.createPageSectionWaypoints();
 			this.addSmoothScrolling();
 		}
 
@@ -10874,43 +10882,6 @@
 							that.siteHeader.removeClass("site-header--dark");
 						}
 					}
-				});
-			}
-
-			//waypoints per le sezioni 
-
-		}, {
-			key: 'createPageSectionWaypoints',
-			value: function createPageSectionWaypoints() {
-				var that = this;
-				this.pageSections.each(function () {
-					var currentPageSection = this;
-					new Waypoint({
-						element: currentPageSection,
-						handler: function handler(direction) {
-							if (direction == "down") {
-								// matchingHeaderLink = la prima volta e` il primo selettore jquery 
-								var matchingHeaderLink = currentPageSection.getAttribute("data-matching-link");
-								that.headerLinks.removeClass("is-current-link");
-								(0, _jquery2.default)(matchingHeaderLink).addClass("is-current-link");
-							}
-						},
-
-						offset: "18%"
-					});
-					new Waypoint({
-						element: currentPageSection,
-						handler: function handler(direction) {
-							if (direction == "up") {
-								// matchingHeaderLink = la prima volta e` il primo selettore jquery 
-								var matchingHeaderLink = currentPageSection.getAttribute("data-matching-link");
-								that.headerLinks.removeClass("is-current-link");
-								(0, _jquery2.default)(matchingHeaderLink).addClass("is-current-link");
-							}
-						},
-
-						offset: "-40%"
-					});
 				});
 			}
 		}]);
@@ -11283,6 +11254,94 @@
 	}));
 
 
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _jquery = __webpack_require__(1);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var DropDown = function () {
+		function DropDown() {
+			_classCallCheck(this, DropDown);
+
+			this.button = (0, _jquery2.default)(".btn");
+			this.menu = (0, _jquery2.default)(".site-header__dropdown-menu");
+			this.toggle();
+		}
+
+		_createClass(DropDown, [{
+			key: "toggle",
+			value: function toggle() {
+				this.menu.hide();
+				var that = this;
+				this.button.on("click", function () {
+					that.menu.slideToggle();
+				});
+			}
+		}]);
+
+		return DropDown;
+	}();
+
+	exports.default = DropDown;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _jquery = __webpack_require__(1);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var SlideShow = function () {
+		function SlideShow() {
+			_classCallCheck(this, SlideShow);
+
+			this.sliding();
+		}
+
+		_createClass(SlideShow, [{
+			key: 'sliding',
+			value: function sliding() {
+				(0, _jquery2.default)("#slideshow > div:gt(0)").hide();
+
+				setInterval(function () {
+					(0, _jquery2.default)('#slideshow > div:first').slideUp(3000).next().slideDown(3000).end().appendTo('#slideshow');
+				}, 3000);
+			}
+		}]);
+
+		return SlideShow;
+	}();
+
+	exports.default = SlideShow;
 
 /***/ })
 /******/ ]);

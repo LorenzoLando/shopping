@@ -6,6 +6,19 @@
   /*quando background-color viene modificato avviene con una trasizione ease-out di 3 millisecondi*/
   transition: background-color .3s ease-out;
 
+  &__dropdown-menu {
+    list-style: none;
+    padding: 15px;
+  }  
+
+  &__dropdown-menu a{
+    color: #FFF;
+    
+   
+  }
+
+
+
   &--is-expanded {
     background-color: rgba($mainBlue, .55);
   }
@@ -35,7 +48,12 @@
     transition: transform .3s ease-out;
     transform-origin: 50% 0;
     background-color: $mainBlue;
-    padding: 25px 36px;
+    padding: 15px 25px;
+    font-size: 1.5rem;
+    color: white;
+    letter-spacing: 10px;
+    font-style: italic;
+
 
     @mixin atMedium {
       left: auto;
